@@ -684,6 +684,16 @@ export const newHttpRequest = (params) => (dispatch, getState) => {
   });
 };
 
+export const saveResponseAsExample = async (item) => {
+  const { ipcRenderer } = window;
+
+  try {
+    await ipcRenderer.invoke('renderer:save-response-as-example', item);
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const addEnvironment = (name, collectionUid) => (dispatch, getState) => {
   return new Promise((resolve, reject) => {
     const state = getState();
