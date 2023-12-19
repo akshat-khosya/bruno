@@ -16,7 +16,7 @@ import TestResultsLabel from './TestResultsLabel';
 import StyledWrapper from './StyledWrapper';
 import ResponseSave from 'src/components/ResponsePane/ResponseSave';
 import ResponseClear from 'src/components/ResponsePane/ResponseClear';
-
+import ResponseAsExample from './ResponseAsExample/index';
 const ResponsePane = ({ rightPaneWidth, item, collection }) => {
   const dispatch = useDispatch();
   const tabs = useSelector((state) => state.tabs.tabs);
@@ -115,6 +115,7 @@ const ResponsePane = ({ rightPaneWidth, item, collection }) => {
         </div>
         {!isLoading ? (
           <div className="flex flex-grow justify-end items-center">
+            <ResponseAsExample item={item} />
             <ResponseClear item={item} collection={collection} />
             <ResponseSave item={item} />
             <StatusCode status={response.status} />
