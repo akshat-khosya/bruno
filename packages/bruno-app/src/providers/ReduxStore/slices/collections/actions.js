@@ -24,6 +24,8 @@ import { waitForNextTick } from 'utils/common';
 import { getDirectoryName, isWindowsOS, PATH_SEPARATOR } from 'utils/common/platform';
 import { sendNetworkRequest, cancelNetworkRequest } from 'utils/network';
 
+import { createAction } from '@reduxjs/toolkit';
+
 import {
   updateLastAction,
   updateNextAction,
@@ -684,12 +686,15 @@ export const newHttpRequest = (params) => (dispatch, getState) => {
   });
 };
 
-export const saveResponseAsExample = async (item) => {
+export const saveResponseAsExample = (item) => async (dispatch) => {
   const { ipcRenderer } = window;
 
   try {
     await ipcRenderer.invoke('renderer:save-response-as-example', item);
+    dispatch(createAction('RESPONSE_SAVED_SUCCESS')());
   } catch (error) {
+    console.log(error);
+    dispatch(createAction('RESPONSE_SAVED_ERROR')(error));
     throw error;
   }
 };
